@@ -1,0 +1,53 @@
+body 
+{
+	color: #274862;
+	font-family: sans-serif;
+}
+.state-2 {
+	color: #0F0;
+}
+a {
+	color:#274862;
+}
+.state-5 {
+	color: #F00;	
+}
+
+.page {
+	width: 80%;
+	margin: 0 auto;
+}
+.header,.footer {
+	background-color: #172C3C;
+	color: #E6B33D;
+	text-align:center;
+	padding: 10px 0px;
+	border-radius : 5px 10px; 
+}
+
+.footer a,.header a {
+	color: #E6B33D;
+	text-decoration:none;
+}
+
+.footer {
+	font-style:italic;
+	font-size:10px;
+}
+
+.content {
+	padding: 20px;	
+	background-color:#E6B33D;
+	border-radius : 5px 10px;
+	margin: 10px 0px;
+}
+
+.info {
+	background-color: #995052;
+	width: 60%;
+	margin: 0 auto;
+	text-align:center;
+	padding:10px;
+	color: #E6B33D;
+	border: dashed 2px #274862;
+}
