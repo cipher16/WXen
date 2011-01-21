@@ -12,13 +12,18 @@ do
 	id=`echo "$i"|awk -F" " '{ print $2 }'`
 	name=`echo $i|awk -F" " '{print $1}'`
 
+	if [ -z $ip ]
+	then ip="[NOT STARTED]";fi
+
 	echo "<li class='state-$state'>"
 	echo $name	
 	#some test
 	if [ $id != "0" ];then
+		mac=`cat /etc/xen/$name|grep "mac"|sed "s/.*mac=\([^,]*\),.*/\1/"`
+		ip=`cat /var/lib/misc/dnsmasq.leases |grep -i $mac |awk -F" " '{ print $3 }'`
 		case $state in
 			5) echo "<a href='?start&name=$name'>[START]</a>";;
-			2) echo "<a href='?stop&name=$name'>[STOP]</a><a href='?suspend&name=$name'>[SUSPEND]</a>";;
+			2) echo "($ip) <a href='?stop&name=$name'>[STOP]</a><a href='?suspend&name=$name'>[SUSPEND]</a>";;
 			3) echo "<a href='?resume&name=$name'>[RESUME]</a>";;
 			1) echo "[STARTING PLEASE WAIT ...]";;
 			*) echo $state;;
@@ -43,7 +48,7 @@ echo "<html><head><title>XEN</title><link rel='stylesheet' href='../style.css' /
 echo "<div class='page'>
 		<div class='header'><h1><a href='xen.sh'>Administration XEN</a></h1></div>
 		<div class='content'>"
-echo "<a href='?a=refresh'>Refresh Vm stats</a>"
+echo "<a href='?refresh'>Refresh Vm stats</a>"
 
 
 
@@ -67,7 +72,8 @@ if [ ! -z $QUERY_STRING ];then
 			addAndExecute "/usr/sbin/xm destroy $NAME"
 			;;
 		"refresh")
-			addAndExecute "$CURRENT_PATH/generate-vms.py > '$CURRENT_PATH/vms'"
+			#addAndExecute "$CURRENT_PATH/generate-vms.py > $CURRENT_PATH/vms"
+			addAndExecute "refresh"
 			;;
 		"resume")
 			addAndExecute "/usr/sbin/xm unpause $NAME"

@@ -1,12 +1,21 @@
 #!/bin/bash
 
-CPATH="`pwd`/cgi-bin"
+CURRENT_PATH="`pwd`/cgi-bin"
 function exec_commande {
-
-	while read line; do $line;echo "$line `date`">>"$CPATH/executed";done < "$CPATH/commands"
-	$CPATH/generate-vms.py >"$CPATH/vms"
-	> "$CPATH/commands"
+	while read line
+	do
+		if [ "$line" == "refresh" ]
+		then 
+			$CURRENT_PATH/generate-vms.py > $CURRENT_PATH/vms	
+		else
+			$line
+		fi
+		echo "$line `date`">>"$CURRENT_PATH/executed"
+	done < "$CURRENT_PATH/commands"
+	
+	> "$CURRENT_PATH/commands"
 	sleep 1
+	
 	exec_commande
 }
 
