@@ -74,6 +74,7 @@ if [ ! -z $QUERY_STRING ];then
 		"refresh")
 			#addAndExecute "$CURRENT_PATH/generate-vms.py > $CURRENT_PATH/vms"
 			addAndExecute "refresh"
+			echo "<script type='text/javascript'>location.href='xen.sh'</script>"
 			;;
 		"resume")
 			addAndExecute "/usr/sbin/xm unpause $NAME"
