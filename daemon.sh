@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap "" SIGINT SIGTERM
+
 CURRENT_PATH="`pwd`/cgi-bin"
 function exec_commande {
 	while read line
@@ -8,7 +10,7 @@ function exec_commande {
 		then 
 			$CURRENT_PATH/generate-vms.py > $CURRENT_PATH/vms	
 		else
-			$line
+			`$line`
 		fi
 		echo "$line `date`">>"$CURRENT_PATH/executed"
 	done < "$CURRENT_PATH/commands"
