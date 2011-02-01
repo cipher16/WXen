@@ -1,0 +1,9 @@
+Howto use this ...
+
+deploy file in cgi-bin in the cgi-bin of your server, with the exection right
+	cd cgi-bin
+	chmod +x {xen.sh,generate-vms.py}
+	chmod +rw commands
+modify file "daemon.sh" CURRENT_PATH to the right folder to read the cgi-bin/commands file
+then execute  
+	nohup daemon.sh& 
